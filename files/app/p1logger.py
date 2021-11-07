@@ -212,14 +212,15 @@ def getData(client, mqtttopic, device, baudrate):
             sys.stdout.flush()
 
         for k, v in values._keys.items():
+            topic = mqtttopic + "/" + k
 
-            result = client.publish(mqtttopic + "/" + k, v)
+            result = client.publish(topic, v)
             # result: [0, 1]
             status = result[0]
             if status == 0:
-                print(f"Send `{v}` to topic `{mqtttopic} + "/" + {k}`")
+                print(f"Send topic `{topic}`")
             else:
-                print(f"Failed to send message to topic {mqtttopic} + "/" + {k}")
+                print(f"Failed to send message to topic {topic} ")
 
         time.sleep(60)
 
