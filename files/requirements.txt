@@ -1,5 +1,5 @@
 pyserial
 pyowm
 configparser
-influxdb
 crcmod
+paho.mqtt.client
