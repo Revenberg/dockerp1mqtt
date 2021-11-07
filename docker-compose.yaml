@@ -24,8 +24,8 @@ services:
       - 9001:9001
     user: "1000:1000"
     volumes:
-      - ./data/mqtt/config:/mosquitto/config
-      - ./data/mqtt/data:/mosquitto/data
-      - ./data/mqtt/log:/mosquitto/log
+      - /var/docker-compose/data/mqtt/config:/mosquitto/config
+      - /var/docker-compose/data/mqtt/data:/mosquitto/data
+      - /var/docker-compose/data/mqtt/log:/mosquitto/log
     restart: always
     network_mode: host
