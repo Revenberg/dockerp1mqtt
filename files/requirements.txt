@@ -2,4 +2,4 @@ pyserial
 pyowm
 configparser
 crcmod
-paho.mqtt.client
+paho-mqtt
