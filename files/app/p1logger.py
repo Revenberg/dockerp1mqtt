@@ -214,6 +214,8 @@ def getData(client, mqtttopic, device, baudrate):
         for k, v in values._keys.items():
             topic = mqtttopic + "/" + k
 
+            print(f"Send topic `{topic}`")
+            print(f"Send topic `{v}`")
             result = client.publish(topic, v)
             # result: [0, 1]
             status = result[0]
