@@ -21,7 +21,7 @@ do_raw_log = config.getboolean('Logging', 'do_raw_log')
 mqttclientid = f'python-mqtt-{random.randint(0, 1000)}'
 mqttBroker = config.get('mqtt', 'mqttBroker')
 mqttPort = int(config.get('mqtt', 'mqttPort'))
-mqtttopic = "p1/mqtt"
+mqtttopic = config.get('mqtt', 'mqttTopic')
 
 device = config.get('p1', 'device')
 baudrate = config.get('p1', 'baudrate')
