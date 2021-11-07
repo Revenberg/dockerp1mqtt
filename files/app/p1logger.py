@@ -212,7 +212,7 @@ def getData(client, mqtttopic, device, baudrate):
             sys.stdout.flush()
 
         for k, v in values._keys.items():
-            topic = mqtttopic + "/" + k.replace("+", "\+")
+            topic = mqtttopic + "/" + k
             
             print(f"Send topic `{topic}`")
             print(f"Send topic `{v}`")

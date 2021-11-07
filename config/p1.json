@@ -68,7 +68,7 @@
         "value": "Tariff indicator electricity. The tariff indicator can be used to switch tariff dependent loads e.g boilers. This is responsibility of the P1 user",
         "OBIS reference": "0-0:96.14.0.255",
         "type": "float",
-        "key": "+DN"
+        "key": "DN"
     },
     "1-0:1.7.0": {
         "source": "Electricity",
