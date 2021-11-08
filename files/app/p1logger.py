@@ -18,6 +18,8 @@ crc16 = crcmod.predefined.mkPredefinedCrcFun('crc16')
 
 do_raw_log = os.getenv("LOGGING", "false").lower() == 'true'
 
+pool_frequency = int(os.getenv("POOL_FREQUENCY", "60"))
+
 device = os.getenv("P1_DEVICE", "/dev/ttyUSB0")
 baudrate = int(os.getenv("P1_BAUDRATE", "115200"))
 
@@ -198,7 +200,7 @@ class P1Packet(object):
     def __str__(self):
         return self._datagram.decode('ascii')
 
-def getData(client, mqttTopic, device, baudrate):
+def getData(client, mqttTopic, device, baudrate, pool_frequency):
 
     meter = SmartMeter(device, baudrate)
 
@@ -223,7 +225,7 @@ def getData(client, mqttTopic, device, baudrate):
         else:
             print(f"Failed to send message to topic {mqttTopic} ")
 
-        time.sleep(60)
+        time.sleep(pool_frequency)
 
 def connect_mqtt(mqttclientid, mqttBroker, mqttPort ):
     def on_connect(client, userdata, flags, rc):
@@ -240,4 +242,4 @@ def connect_mqtt(mqttclientid, mqttBroker, mqttPort ):
 
 client=connect_mqtt(mqttclientid, mqttBroker, mqttPort )
 client.loop_start()
-getData(client, mqttTopic, device, baudrate)
+getData(client, mqttTopic, device, baudrate, pool_frequency)
