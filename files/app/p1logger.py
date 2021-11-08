@@ -27,6 +27,8 @@ mqttTopic = os.getenv("MQTT_TOPIC", "reading/p1")
 
 values = dict()
 
+gas_value = 0
+
 class SmartMeter(object):
 
     def __init__(self, port, *args, **kwargs):
@@ -205,6 +207,10 @@ def getData(client, mqttTopic, device, baudrate, pool_frequency):
     while True:
         values = meter.read_one_packet()
 
+        if values._keys["GAS_READING"]:
+            if gas_value > 0:
+                values._keys["GAS_DELTA"] = values._keys["GAS_READING"] - gas_value
+            gas_value = values._keys["GAS_READING"]
         json_body = { k: v for k, v in values._keys.items() }                     
 
         if do_raw_log:
