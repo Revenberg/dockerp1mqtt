@@ -22,7 +22,7 @@ baudrate = int(os.getenv("P1_BAUDRATE", "115200"))
 
 mqttBroker = os.getenv("MQTT_ADDRESS", "localhost")
 mqttPort = int(os.getenv("MQTT_PORT", "1883"))
-mqttTopic = os.getenv("MQTT_TOPIC", "readings/p1")
+mqttTopic = os.getenv("MQTT_TOPIC", "reading/p1")
 
 values = dict()
 
