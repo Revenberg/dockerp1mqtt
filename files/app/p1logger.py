@@ -212,11 +212,11 @@ def getData(client, mqtttopic, device, baudrate):
 
         topic = mqtttopic
         
-        #if do_raw_log:
-        print(f"Send topic `{topic}`")
-        print(f"Send topic `{json_body}`")
+        if do_raw_log:
+            print(f"Send topic `{topic}`")
+            print(f"Send topic `{json_body}`")
 
-        result = client.publish(topic, json_body)
+        result = client.publish(topic, json.dumps(json_body))
         # result: [0, 1]
         status = result[0]
 
