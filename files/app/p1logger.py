@@ -12,6 +12,7 @@ import time
 import json
 import random
 import time
+import settings
 
 config = configparser.RawConfigParser(allow_no_value=True)
 config.read("config.ini")
@@ -19,12 +20,6 @@ config.read("config.ini")
 do_raw_log = config.getboolean('Logging', 'do_raw_log')
 
 mqttclientid = f'python-mqtt-{random.randint(0, 1000)}'
-mqttBroker = config.get('mqtt', 'mqttBroker')
-mqttPort = int(config.get('mqtt', 'mqttPort'))
-mqtttopic = config.get('mqtt', 'mqttTopic')
-
-device = config.get('p1', 'device')
-baudrate = config.get('p1', 'baudrate')
 
 values = dict()
 
@@ -211,22 +206,41 @@ def getData(client, mqtttopic, device, baudrate):
             print( values )
             sys.stdout.flush()
 
-        for k, v in values._keys.items():
-            topic = mqtttopic + "/" + k
-            
-            print(f"Send topic `{topic}`")
-            print(f"Send topic `{v}`")
-            result = client.publish(topic, v)
-            # result: [0, 1]
-            status = result[0]
+        json_body = { 'fields': {k: v for k, v in values._keys.items()}
+                    }
 
-            if status == 0:
-                if do_raw_log:
-                    print(f"Send topic `{topic}`")
-            else:
-                print(f"Failed to send message to topic {topic} ")
 
-            time.sleep(60)
+        topic = mqtttopic + "/" + k
+        
+        #if do_raw_log:
+        print(f"Send topic `{topic}`")
+        print(f"Send topic `{json_body}`")
+
+        result = client.publish(topic, json_body)
+        # result: [0, 1]
+        status = result[0]
+
+        if status == 0:
+            if do_raw_log:
+                print(f"Send topic `{topic}`")
+        else:
+            print(f"Failed to send message to topic {topic} ")
+
+
+#        for k, v in values._keys.items():
+#            topic = mqtttopic + "/" + k
+#            
+#            result = client.publish(topic, v)
+#            # result: [0, 1]
+#            status = result[0]
+#
+#            if status == 0:
+#                if do_raw_log:
+#                    print(f"Send topic `{topic}`")
+#            else:
+#                print(f"Failed to send message to topic {topic} ")
+#
+        time.sleep(60)
 
 def connect_mqtt(mqttclientid, mqttBroker, mqttPort ):
     def on_connect(client, userdata, flags, rc):
