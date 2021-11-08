@@ -7,11 +7,8 @@ import decimal
 import re
 import crcmod.predefined
 import serial
-import time
 import json
 import random
-import time
-from datetime import datetime
 
 mqttclientid = f'python-mqtt-{random.randint(0, 1000)}'
 crc16 = crcmod.predefined.mkPredefinedCrcFun('crc16')
@@ -207,9 +204,7 @@ def getData(client, mqttTopic, device, baudrate, pool_frequency):
     while True:
         values = meter.read_one_packet()
 
-        json_body = { 'reading': [ {k: v for k, v in values._keys.items()} ],
-                      'dateTime': datetime.now().strftime("%d-%m-%Y %H:%M:%S")
-                    }
+        json_body = { k: v for k, v in values._keys.items() }                     
 
         if do_raw_log:
             print(f"Send topic `{mqttTopic}`")
