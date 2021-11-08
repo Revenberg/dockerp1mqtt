@@ -209,6 +209,7 @@ def getData(client, mqttTopic, device, baudrate, pool_frequency):
 
         if values._keys["GAS_READING"]:
             global gas_value
+            
             if gas_value > 0:
                 if values._keys["GAS_READING"] > 0:
                     values._keys["GAS_DELTA"] = values._keys["GAS_READING"] - gas_value
