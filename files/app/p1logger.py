@@ -206,7 +206,7 @@ def getData(client, mqtttopic, device, baudrate):
         values = meter.read_one_packet()
 
         json_body = { 'reading': [ {k: v for k, v in values._keys.items()} ],
-                      'dateTime': datetime.now() 
+                      'dateTime': datetime.now().strftime("%d-%m-%Y %H:%M:%S")
                     }
 
         topic = mqtttopic
