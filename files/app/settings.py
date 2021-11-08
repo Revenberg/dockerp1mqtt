@@ -1,7 +1,7 @@
 """Exporter configuration."""
 import os
 
-do_raw_log = os.getenv("LOGGING", "no")
+do_raw_log = bool(os.getenv("LOGGING", "false"))
 
 device = os.getenv("P1_DEVICE", "/dev/ttyUSB0")
 baudrate = int(os.getenv("P1_BAUDRATE", "115200"))

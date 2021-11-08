@@ -1,5 +1,4 @@
 import paho.mqtt.client as mqtt
-import configparser
 import datetime
 import os
 import binascii
@@ -14,16 +13,10 @@ import random
 import time
 import settings
 
-config = configparser.RawConfigParser(allow_no_value=True)
-config.read("config.ini")
-
-do_raw_log = config.getboolean('Logging', 'do_raw_log')
-
 mqttclientid = f'python-mqtt-{random.randint(0, 1000)}'
+crc16 = crcmod.predefined.mkPredefinedCrcFun('crc16')
 
 values = dict()
-
-crc16 = crcmod.predefined.mkPredefinedCrcFun('crc16')
 
 class SmartMeter(object):
 
