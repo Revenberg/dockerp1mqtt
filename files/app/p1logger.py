@@ -209,21 +209,19 @@ def getData(client, mqtttopic, device, baudrate):
                       'dateTime': datetime.now().strftime("%d-%m-%Y %H:%M:%S")
                     }
 
-        topic = mqtttopic
-        
         if do_raw_log:
-            print(f"Send topic `{topic}`")
+            print(f"Send topic `{mqtttopic}`")
             print(f"Send topic `{json_body}`")
 
-        result = client.publish(topic, json.dumps(json_body))
+        result = client.publish(mqtttopic, json.dumps(json_body))
         # result: [0, 1]
         status = result[0]
 
         if status == 0:
             if do_raw_log:
-                print(f"Send topic `{topic}`")
+                print(f"Send topic `{mqtttopic}`")
         else:
-            print(f"Failed to send message to topic {topic} ")
+            print(f"Failed to send message to topic {mqtttopic} ")
 
         time.sleep(60)
 
