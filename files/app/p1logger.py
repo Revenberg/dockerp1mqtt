@@ -15,7 +15,7 @@ import time
 mqttclientid = f'python-mqtt-{random.randint(0, 1000)}'
 crc16 = crcmod.predefined.mkPredefinedCrcFun('crc16')
 
-do_raw_log = bool(os.getenv("LOGGING", "FALSE"))
+do_raw_log = os.getenv("LOGGING", "false").lower() == 'true'
 
 device = os.getenv("P1_DEVICE", "/dev/ttyUSB0")
 baudrate = int(os.getenv("P1_BAUDRATE", "115200"))
