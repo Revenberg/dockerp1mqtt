@@ -15,7 +15,7 @@ import time
 mqttclientid = f'python-mqtt-{random.randint(0, 1000)}'
 crc16 = crcmod.predefined.mkPredefinedCrcFun('crc16')
 
-do_raw_log = bool(os.getenv("LOGGING", "false"))
+do_raw_log = bool(os.getenv("LOGGING", "FALSE"))
 
 device = os.getenv("P1_DEVICE", "/dev/ttyUSB0")
 baudrate = int(os.getenv("P1_BAUDRATE", "115200"))
@@ -203,11 +203,7 @@ def getData(client, mqtttopic, device, baudrate):
     while True:
         values = meter.read_one_packet()
 
-        if do_raw_log:
-            print( values )
-            sys.stdout.flush()
-
-        json_body = { 'fields': {k: v for k, v in values._keys.items()}
+        json_body = { 'p1': {k: v for k, v in values._keys.items()}
                     }
 
         topic = mqtttopic
@@ -226,20 +222,6 @@ def getData(client, mqtttopic, device, baudrate):
         else:
             print(f"Failed to send message to topic {topic} ")
 
-
-#        for k, v in values._keys.items():
-#            topic = mqtttopic + "/" + k
-#            
-#            result = client.publish(topic, v)
-#            # result: [0, 1]
-#            status = result[0]
-#
-#            if status == 0:
-#                if do_raw_log:
-#                    print(f"Send topic `{topic}`")
-#            else:
-#                print(f"Failed to send message to topic {topic} ")
-#
         time.sleep(60)
 
 def connect_mqtt(mqttclientid, mqttBroker, mqttPort ):
