@@ -198,7 +198,7 @@ class P1Packet(object):
     def __str__(self):
         return self._datagram.decode('ascii')
 
-def getData(client, mqtttopic, device, baudrate):
+def getData(client, mqttTopic, device, baudrate):
 
     meter = SmartMeter(device, baudrate)
 
@@ -210,18 +210,18 @@ def getData(client, mqtttopic, device, baudrate):
                     }
 
         if do_raw_log:
-            print(f"Send topic `{mqtttopic}`")
+            print(f"Send topic `{mqttTopic}`")
             print(f"Send topic `{json_body}`")
 
-        result = client.publish(mqtttopic, json.dumps(json_body))
+        result = client.publish(mqttTopic, json.dumps(json_body))
         # result: [0, 1]
         status = result[0]
 
         if status == 0:
             if do_raw_log:
-                print(f"Send topic `{mqtttopic}`")
+                print(f"Send topic `{mqttTopic}`")
         else:
-            print(f"Failed to send message to topic {mqtttopic} ")
+            print(f"Failed to send message to topic {mqttTopic} ")
 
         time.sleep(60)
 
