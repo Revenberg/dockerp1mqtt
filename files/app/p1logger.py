@@ -209,8 +209,7 @@ def getData(client, mqtttopic, device, baudrate):
         json_body = { 'fields': {k: v for k, v in values._keys.items()}
                     }
 
-
-        topic = mqtttopic + "/" + k
+        topic = mqtttopic
         
         #if do_raw_log:
         print(f"Send topic `{topic}`")
