@@ -11,16 +11,16 @@ services:
 
     restart: always
     depends_on:
-      - mqtt
+      - mqttp1
     restart: always
     links:
-      - mqtt
+      - mqttp1
     devices:
       - /dev/ttyUSB0:/dev/ttyUSB0
 
-  mqtt:
+  mqttp1:
     image: "eclipse-mosquitto:latest"
-    container_name: mqtt
+    container_name: mqttp1
     environment:
       - TZ=Europe/Amsterdam
       - "MQTT_BROKER_URL=mqtt://127.0.0.1"      
