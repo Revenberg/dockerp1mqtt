@@ -2,7 +2,7 @@
 
 # version 2021-08-07 15:20
 
-cd ~/dockerp1mqtt
+cd /home/pi/dockerp1mqtt
 
 if [ -n "$1" ]; then
   ex=$1
