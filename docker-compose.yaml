@@ -9,11 +9,9 @@ services:
       - MQTT_PORT=1883
       - MQTT_TOPIC=reading/p1
       - LOG_LEVEL=DEBUG
-
     restart: always
     depends_on:
       - mqttp1
-    restart: always
     links:
       - mqttp1
     devices:
