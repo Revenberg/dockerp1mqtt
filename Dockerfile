@@ -11,3 +11,4 @@ COPY files/app/* /app/
 COPY config/* /app/
 
 CMD python ./p1logger.py
+
